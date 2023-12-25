@@ -4,7 +4,11 @@ import React, { useState } from 'react'
 import AlertMessage from './AlertMessage'
 import FilePreview from './FilePreview'
 
-const UploadForm = () => {
+interface UploadFormInterface {
+  handleUploadBtnClick: (file: any) => any
+}
+
+const UploadForm: React.FC<UploadFormInterface> = ({ handleUploadBtnClick }) => {
   const [file, setFile] = useState<any>()
   const [error, setError] = useState<string | null>()
 
@@ -41,6 +45,7 @@ const UploadForm = () => {
       <button 
         className='p-2 bg-primary text-white w-[30%] rounded-full mt-5 disabled:bg-gray-400 cursor-pointer' 
         disabled={!file}
+        onClick={() => handleUploadBtnClick(file)}
       >
         Загрузить
       </button>
