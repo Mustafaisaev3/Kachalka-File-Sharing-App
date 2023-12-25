@@ -3,12 +3,14 @@
 import React, { useState } from 'react'
 import AlertMessage from './AlertMessage'
 import FilePreview from './FilePreview'
+import ProgressBar from './ProgressBar'
 
 interface UploadFormInterface {
-  handleUploadBtnClick: (file: any) => any
+  handleUploadBtnClick: (file: any) => any,
+  progress: number
 }
 
-const UploadForm: React.FC<UploadFormInterface> = ({ handleUploadBtnClick }) => {
+const UploadForm: React.FC<UploadFormInterface> = ({ handleUploadBtnClick, progress }) => {
   const [file, setFile] = useState<any>()
   const [error, setError] = useState<string | null>()
 
@@ -22,7 +24,7 @@ const UploadForm: React.FC<UploadFormInterface> = ({ handleUploadBtnClick }) => 
   }
 
   return (
-    <div className='text-center'>
+    <div className='text-center w-full lg:w-[800px]'>
       <div className="flex items-center justify-center w-full">
         <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-blue-50 dark:hover:bg-bray-800 hover:bg-blue-100 dark:border-blue-600 dark:hover:border-blue-500 dark:hover:bg-gray-1">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -42,13 +44,16 @@ const UploadForm: React.FC<UploadFormInterface> = ({ handleUploadBtnClick }) => 
       </div> 
       {error ? <AlertMessage message={error} /> : null}
       {file ? <FilePreview file={file} removeFile={() => setFile(null)}/> : null}
-      <button 
-        className='p-2 bg-primary text-white w-[30%] rounded-full mt-5 disabled:bg-gray-400 cursor-pointer' 
-        disabled={!file}
-        onClick={() => handleUploadBtnClick(file)}
-      >
-        Загрузить
-      </button>
+      
+      {progress > 0 ? <ProgressBar progress={progress}/> : (
+        <button 
+          className='p-2 bg-primary text-white w-[30%] rounded-full mt-5 disabled:bg-gray-400 cursor-pointer' 
+          disabled={!file}
+          onClick={() => handleUploadBtnClick(file)}
+        >
+          Загрузить
+        </button>
+      )}
     </div>
   )
 }
