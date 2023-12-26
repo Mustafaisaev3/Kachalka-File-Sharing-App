@@ -44,7 +44,7 @@ const page = ({ params }: FilePreviewParamsInterface) => {
       <div className='py-10 px-20'>
         <Link href='/upload' className='flex gap-3'>
           <ArrowLeftSquare />
-          Go to Upload
+          Перейти в Загрузки
         </Link>
         <div className='grid grid-cols-1 md:grid-cols-2 mt-5'>
           <FileInfo file={file} />

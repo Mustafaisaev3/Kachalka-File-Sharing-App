@@ -1,7 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
+import { useUser } from '@clerk/nextjs'
 import { Copy, CopyIcon } from 'lucide-react'
+import GlobalApi from '@/utils/global-api'
 
 interface FileShareFormInterface {
   file: any,
@@ -11,11 +13,29 @@ interface FileShareFormInterface {
 const FileShareForm: React.FC<FileShareFormInterface> = ({ file, onPasswordSave }) => {
   const [isPasswordEnable, setIsPasswordEnable] = useState<boolean>(true)
   const [password, setPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+
+  const { user } = useUser()
+
+  const sendEmail = () => {
+    const data = {
+        emailToSend: email,
+        userName: user?.fullName,
+        fileName: file.fileName,
+        fileSize: file.fileSize,
+        fileType: file.fileType,
+        shortUrl: file.shortUrl
+    }
+
+    GlobalApi.SendEmail(data).then(response => {
+        console.log(response)
+    })
+  }
   
     return (
     <div className='flex flex-col gap-2'>
         <div>
-            <label className='text-[14px] text-gray-500 font-semibold'>Shrt URL</label>
+            <label className='text-[14px] text-gray-500 font-semibold'>Короткий URL</label>
             <div className='flex justify-between gap-2 p-2 border rounded-md'>
                 <input 
                   type="text" 
@@ -28,9 +48,8 @@ const FileShareForm: React.FC<FileShareFormInterface> = ({ file, onPasswordSave 
         </div>
 
         <div className='flex gap-3 mt-5'>
-            {/* <input type="checkbox" onChange={(e) => console.log(e.target.value)} /> */}
             <input type="checkbox" onChange={(e) => setIsPasswordEnable(e.target.checked)} />
-            <label>Enable Password?</label>
+            <label>Включить пароль?</label>
         </div>
 
         {isPasswordEnable ? (
@@ -47,24 +66,26 @@ const FileShareForm: React.FC<FileShareFormInterface> = ({ file, onPasswordSave 
                   disabled={password.length < 3}  
                   onClick={() => onPasswordSave(password)}
                 >
-                    Save
+                    Сохранить
                 </button>
             </div>
         ) : null}
 
         <div className='w-full h-auto border rounded-md p-2 mt-5'>
-          <label className='text-[14px] text-gray-500 font-semibold'>Send File to Email</label>
+          <label className='text-[14px] text-gray-500 font-semibold'>Отправить файл на Почту</label>
           <div className='border rounded-md w-full p-2'>
             <input 
               type='email'
               className='disabled:text-gray-500 bg-transparent outline-none'
               placeholder='example@gmail.com'
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <button 
             className='w-full p-2 bg-primary text-white rounded-md disabled:bg-gray-300 hover:bg-blue-600 mt-2'
+            onClick={sendEmail}
           >
-            Send Email
+            Отправить
           </button>
         </div>
     </div>
