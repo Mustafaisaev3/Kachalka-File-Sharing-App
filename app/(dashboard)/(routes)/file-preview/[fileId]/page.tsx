@@ -1,8 +1,12 @@
 'use client'
 
-import { app } from '@/firebaseConfig';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
+import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
+import { app } from '@/firebaseConfig';
+import { ArrowLeftSquare } from 'lucide-react';
+import Link from 'next/link';
+import FileInfo from '@/components/upload/FileInfo';
+import FileShareForm from '@/components/upload/FileShareForm';
 
 interface FilePreviewParamsInterface {
   params: any
@@ -27,8 +31,32 @@ const page = ({ params }: FilePreviewParamsInterface) => {
     getFileInfo()
   }, [])
 
+  const onPasswordSave = async (password: any) => {
+    const docRef = doc(db, 'uploaded-file', params?.fileId)
+    await updateDoc(docRef, {
+      password
+    })
+  }
+ 
   return (
-    <div>File Preview</div>
+    <>
+    {file ? (
+      <div className='py-10 px-20'>
+        <Link href='/upload' className='flex gap-3'>
+          <ArrowLeftSquare />
+          Go to Upload
+        </Link>
+        <div className='grid grid-cols-1 md:grid-cols-2 mt-5'>
+          <FileInfo file={file} />
+          <FileShareForm
+            file={file}
+            onPasswordSave={(password) => onPasswordSave(password)}
+          />
+        </div>
+      </div>
+    ) : null}
+    </>
+    
   )
 }
 
