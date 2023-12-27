@@ -38,7 +38,7 @@ const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                 Kachalka - платформа которая позволяет делиться файлами со своими друзьями
             </Text>
             <Section style={btnContainer}>
-            <Button style={button} href="https://getkoala.com">
+            <Button style={button} href={response.shortUrl}>
                 Скачать Файл
             </Button>
             </Section>
