@@ -43,7 +43,7 @@ const page = () => {
   const saveInfo = async (file: any, fileUrl: any) => {
     const docId = generateRandomString()
     setFileDocId(docId)
-    await setDoc(doc(db, 'uploaded-file', generateRandomString()), {
+    await setDoc(doc(db, 'uploaded-file', docId), {
       fileName: file.name,
       fileSize: file.size,
       fileType: file.type,

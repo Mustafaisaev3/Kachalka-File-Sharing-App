@@ -5,6 +5,7 @@ import { app } from '@/firebaseConfig'
 import { getStorage, ref, listAll } from "firebase/storage";
 import { collection, getDocs } from "firebase/firestore";
 import { getFirestore } from 'firebase/firestore';
+import FilesTable from '@/components/files/FilesTable';
 const Files = () => {
   const [loading, setLoading] = useState(false)
   const [files, setFiles] = useState<any>(null)
@@ -14,7 +15,7 @@ const Files = () => {
 
   const getFiles = async () => {
     const snapshot = await getDocs(collection(db, "uploaded-file"))
-    const filesArr = []
+    const filesArr: any[] = []
     snapshot.docs.map((doc) => {
       filesArr.push(doc.data())
       console.log(doc.data())
@@ -34,12 +35,13 @@ const Files = () => {
   }
 
   return (
-    <div className='w-full h-auto'>
-      {files.map(file => {
+    <div className='w-full h-auto p-5'>
+      <FilesTable files={files} />
+      {/* {files.map((file: any) => {
         return (
           <div className='text-black'>{file.fileName}</div>
         )
-      })}
+      })} */}
     </div>
   )
 }
