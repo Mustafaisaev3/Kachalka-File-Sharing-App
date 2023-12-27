@@ -18,7 +18,7 @@ const page = () => {
   const router = useRouter()
   const db = getFirestore(app)
 
-  const uploadFile = (file: any) => {
+  const uploadFile = async (file: any) => {
     const storageRef = ref(storage, `file-upload/${file.name}`)
     const uploadTask = uploadBytesResumable(storageRef, file, file.type)
     uploadTask.on('state_changed', (snapshot) => {
@@ -26,16 +26,16 @@ const page = () => {
       setProgress(progress)
       
       if (progress == 100) {
-        getDownloadURL(uploadTask.snapshot.ref).then((fileURL) => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (fileURL) => {
           console.log('File available at', fileURL)
-          saveInfo(file, fileURL)
-        })
+          await saveInfo(file, fileURL)
 
-        setShowSuccessUpload(true)
-        setTimeout(() => {
-          setShowSuccessUpload(false)
-          router.push(`/file-preview/${fileDocId}`)
-        }, 2000)
+          setShowSuccessUpload(true)
+          setTimeout(() => {
+            setShowSuccessUpload(false)
+            router.push(`/file-preview/${fileDocId}`)
+          }, 2000)
+        })
       } 
     },)
   }
