@@ -9,10 +9,10 @@ export async function POST(req: NextRequest) {
   try {
     const data = await resend.emails.send({
       from: 'Kachalka@resend.dev',
-      to: ['mustafaisaev3@gmail.com'],
-      subject: 'Hello world',
-      react: EmailTemplate({ firstName: 'John' }),
-      text: 'Hello'
+      to: [response.emailToSend],
+      subject: `${response.userName} поделился файлом с Вами`,
+      react: EmailTemplate({ response }),
+      text: 'Файл'
     });
 
     return Response.json(data);
