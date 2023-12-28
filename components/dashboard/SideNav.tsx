@@ -38,7 +38,7 @@ const SideNav = () => {
 
   return (
     <div className='shadow-sm border-r h-full'>
-        <div className='p-5 border-b'>
+        <div className='h-[80px] p-5 border-b'>
             <div className='flex items-center gap-2'>
                 <Image src='/logo3.png' alt='logo' width={50} height={80} className='object-cover' />
                 <div className='text-primary font-semibold'>Качалка</div>

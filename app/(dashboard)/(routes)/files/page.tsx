@@ -6,6 +6,8 @@ import { getStorage, ref, listAll } from "firebase/storage";
 import { collection, getDocs } from "firebase/firestore";
 import { getFirestore } from 'firebase/firestore';
 import FilesTable from '@/components/files/FilesTable';
+import Loading from '@/components/Loading';
+
 const Files = () => {
   const [loading, setLoading] = useState(false)
   const [files, setFiles] = useState<any>(null)
@@ -30,7 +32,9 @@ const Files = () => {
 
   if (!files) {
     return (
-      <div>Loading</div>
+      <div className='w-full h-[calc(100%-80px)]'>
+        <Loading />
+      </div>
     )
   }
 
