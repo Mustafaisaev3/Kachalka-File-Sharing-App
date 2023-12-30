@@ -31,7 +31,7 @@ const FilesTable = ({ files }: any) => {
                 </TableRow>
             </TableHeader>
             <TableBody>
-                {files.map((file) => (
+                {files.map((file: any) => (
                 <TableRow key={file.id}>
                     <TableCell className="font-medium">{file.id}</TableCell>
                     <TableCell>
@@ -44,7 +44,7 @@ const FilesTable = ({ files }: any) => {
                     <TableCell className='text-center'>{file.filePassword ? file.filePassword : '-'}</TableCell>
                     <TableCell>
                         <div className='w-6'>
-                            <Link href={`/f/${file.id}`} className='hover:text-blue-600'>
+                            <Link href={`/file-preview/${file.id}`} className='hover:text-blue-600'>
                                 <ExternalLink className='cursor-pointer' />
                             </Link>
                         </div>
@@ -54,10 +54,10 @@ const FilesTable = ({ files }: any) => {
             </TableBody>
             <TableFooter>
                 <TableRow>
-                <TableCell colSpan={7}>Всего Файлов</TableCell>
+                <TableCell colSpan={7}>Всего Файлов:</TableCell>
                 <TableCell className="text-right">{files.length}</TableCell>
                 </TableRow>
-            </TableFooter>`
+            </TableFooter>
         </Table>
     </div>
   )

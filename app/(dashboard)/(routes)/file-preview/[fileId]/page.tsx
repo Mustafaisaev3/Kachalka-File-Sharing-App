@@ -7,6 +7,7 @@ import { ArrowLeftSquare } from 'lucide-react';
 import Link from 'next/link';
 import FileInfo from '@/components/upload/FileInfo';
 import FileShareForm from '@/components/upload/FileShareForm';
+import Loading from '@/components/Loading';
 
 interface FilePreviewParamsInterface {
   params: any
@@ -36,6 +37,12 @@ const page = ({ params }: FilePreviewParamsInterface) => {
     await updateDoc(docRef, {
       password
     })
+  }
+
+  if (!file) {
+    return (
+      <Loading />
+    )
   }
  
   return (

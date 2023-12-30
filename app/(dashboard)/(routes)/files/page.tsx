@@ -41,11 +41,6 @@ const Files = () => {
   return (
     <div className='w-full h-auto p-5'>
       <FilesTable files={files} />
-      {/* {files.map((file: any) => {
-        return (
-          <div className='text-black'>{file.fileName}</div>
-        )
-      })} */}
     </div>
   )
 }
