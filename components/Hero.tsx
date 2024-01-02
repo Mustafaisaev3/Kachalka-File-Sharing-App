@@ -2,7 +2,7 @@ import React from 'react'
 
 const Hero = () => {
   return (
-    <section className="bg-gray-50">
+    <section className="bg-transparent">
         <div className="h-full mx-auto max-w-screen-xl px-4 py-32 lg:flex relative">
             <div className="mx-auto max-w-xl text-center  z-10">
                 <h1 className="text-3xl font-extrabold sm:text-5xl">
@@ -15,17 +15,17 @@ const Hero = () => {
 
                 <div className="mt-8 flex flex-wrap justify-center gap-4">
                     <a
-                    className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
-                    href="/files"
+                        className="block w-full rounded bg-primary px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-red-500 sm:w-auto"
+                        href="/files"
                     >
-                    Get Started
+                        Начать
                     </a>
 
                     <a
-                    className="block w-full rounded px-12 py-3 text-sm font-medium text-primary shadow hover:text-blue-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto"
-                    href="/about"
+                        className="block w-full rounded px-12 py-3 text-sm font-medium text-primary shadow hover:text-blue-700 focus:outline-none focus:ring active:text-red-500 sm:w-auto"
+                        href="/sign-in"
                     >
-                    Learn More
+                        Регистрация
                     </a>
                 </div>
             </div>
